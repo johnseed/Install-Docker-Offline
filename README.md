@@ -18,6 +18,23 @@ mkdir /docker-repo/
 yum install --downloadonly --downloaddir=/docker-repo docker-ce docker-ce-cli containerd.io
 
 # yumdownloader --resolve docker-ce docker-ce-cli containerd.io
+
+createrepo .
+tar -czvf docker-repo.tar.gz /docker-repo
 ```
 
+### Install docker on offline environment
+```bash
+yumRepoDir=/etc/yum.repos.d
+rootDir=`pwd`
+tar -xzvf docker-repo.tar.gz
+echo "[docker-repo]" > $yumRepoDir/docker.repo
+echo "name=docker-repo" >> $yumRepoDir/docker.repo
+echo "baseurl=file://${rootDir}/docker-repo" >> $yumRepoDir/docker.repo
+echo "gpgcheck=0" >> $yumRepoDir/docker.repo
+echo "enabled=1" >> $yumRepoDir/docker.repo
+
 yum install docker-ce docker-ce-cli containerd.io
+systemctl start docker
+systemctl enable docker
+```
