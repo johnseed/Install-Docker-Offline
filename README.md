@@ -38,3 +38,17 @@ yum install docker-ce docker-ce-cli containerd.io
 systemctl start docker
 systemctl enable docker
 ```
+
+## Install portainer
+
+```bash
+docker load < portainer.tar
+docker run -d -p 8000:8000 -p 9000:9000 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce
+```
+
+## Install portainer agent
+
+```bash
+docker load < portainer-agent.tar
+docker run -d -p 9001:9001 --name portainer_agent --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v /var/lib/docker/volumes:/var/lib/docker/volumes portainer/agent
+```

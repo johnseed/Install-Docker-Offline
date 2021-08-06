@@ -12,3 +12,5 @@ yum clean all > /dev/null 2>&1
 yum makecache > /dev/null 2>&1
 
 yum install docker-ce docker-ce-cli containerd.io
+systemctl start docker
+systemctl enable docker
