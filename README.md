@@ -1,6 +1,6 @@
 # Install docker offline
 
-## Centos7.6
+## Centos
 
 ### Prepare local repo
 
@@ -8,7 +8,7 @@
 # export http_proxy="http://192.168.1.2:1001"
 # export https_proxy="http://192.168.1.2:1001"
 
-yum install -y yum-utils
+yum install -y yum-utils createrepo
 
 yum-config-manager \
     --add-repo \
@@ -28,15 +28,49 @@ tar -czvf docker-repo.tar.gz /docker-repo
 yumRepoDir=/etc/yum.repos.d
 rootDir=`pwd`
 tar -xzvf docker-repo.tar.gz
+mkdir -p $yumRepoDir/backup
+mv $yumRepoDir/*.repo $yumRepoDir/backup/
 echo "[docker-repo]" > $yumRepoDir/docker.repo
 echo "name=docker-repo" >> $yumRepoDir/docker.repo
 echo "baseurl=file://${rootDir}/docker-repo" >> $yumRepoDir/docker.repo
 echo "gpgcheck=0" >> $yumRepoDir/docker.repo
 echo "enabled=1" >> $yumRepoDir/docker.repo
+yum clean all > /dev/null 2>&1
+yum makecache > /dev/null 2>&1
 
 yum install docker-ce docker-ce-cli containerd.io
 systemctl start docker
 systemctl enable docker
+
+mv $yumRepoDir/backup/*.repo $yumRepoDir/
+mv $yumRepoDir/docker.repo $yumRepoDir/backup/
+```
+
+## Ubuntu
+
+### Prepare local apt repo
+[https://askubuntu.com/questions/170348/how-to-create-a-local-apt-repository]
+
+```bash
+apt-get install dpkg-dev
+curl -fsSL https://get.docker.com -o get-docker.sh
+sh get-docker.sh
+cd /var/cache/apt/archives
+dpkg-scanpackages . /dev/null | gzip -9c > Packages.gz
+cd ..
+tar czvf docker-debs.tar.gz archives
+```
+
+### Install
+
+```bash
+mkdir -p /etc/apt/bak
+mv /etc/apt/sources.list /etc/apt/bak
+tar -xzvf /usr/local/docker-debs.tar.gz
+echo deb [trusted=yes] file:/usr/local/docker-debs ./ > /etc/apt/sources.list
+apt update 
+apt install -y docker-ce-cli docker-scan-plugin docker-ce docker-ce-rootless-extras
+mv /etc/apt/bak/sources.list /etc/apt/
 ```
 
 ## Install portainer
