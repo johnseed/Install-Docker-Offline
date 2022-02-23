@@ -73,14 +73,16 @@ apt install -y docker-ce-cli docker-scan-plugin docker-ce docker-ce-rootless-ext
 mv /etc/apt/bak/sources.list /etc/apt/
 ```
 
-## Install portainer
+## Portainer
+
+### Install portainer
 
 ```bash
 docker load < portainer.tar
 docker run -d -p 8000:8000 -p 9000:9000 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce
 ```
 
-## Install portainer agent
+### Install portainer agent
 
 ```bash
 docker load < portainer-agent.tar
