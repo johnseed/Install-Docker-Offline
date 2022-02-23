@@ -1,6 +1,6 @@
 # Install docker offline
 
-## Centos
+## CentOS
 
 ### Prepare local repo
 
