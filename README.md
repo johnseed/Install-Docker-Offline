@@ -73,7 +73,7 @@ apt install -y docker-ce-cli docker-scan-plugin docker-ce docker-ce-rootless-ext
 mv /etc/apt/bak/sources.list /etc/apt/
 ```
 
-## Portainer
+## Install Portainer
 
 ### Install portainer
 
