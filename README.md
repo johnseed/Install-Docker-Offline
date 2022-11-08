@@ -49,7 +49,8 @@ mv $yumRepoDir/docker.repo $yumRepoDir/backup/
 ## Ubuntu
 
 ### Prepare local apt repo
-[https://askubuntu.com/questions/170348/how-to-create-a-local-apt-repository]
+[https://askubuntu.com/questions/170348/how-to-create-a-local-apt-repository]  
+[https://www.simplified.guide/ubuntu/apt-download-only]
 
 ```bash
 apt-get install dpkg-dev
