@@ -56,6 +56,7 @@ mv $yumRepoDir/docker.repo $yumRepoDir/backup/
 apt-get install dpkg-dev
 curl -fsSL https://get.docker.com -o get-docker.sh
 sh get-docker.sh
+# apt-get install --download-only --assume-yes xxx
 cd /var/cache/apt/archives
 dpkg-scanpackages . /dev/null | gzip -9c > Packages.gz
 cd ..
