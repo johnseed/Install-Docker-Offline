@@ -76,6 +76,10 @@ apt update
 apt install -y docker-ce-cli docker-scan-plugin docker-ce docker-ce-rootless-extras
 mv /etc/apt/bak/sources.list /etc/apt/
 ```
+## Binary
+
+-    [Install Docker Engine from binaries](https://docs.docker.com/engine/install/binaries/)
+-    [Index of linux/static/stable/aarch64/](https://download.docker.com/linux/static/stable/aarch64/)
 
 ## Install Portainer
 
